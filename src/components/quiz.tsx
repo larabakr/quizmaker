@@ -86,8 +86,6 @@ class Quiz extends React.Component<any, StateTypes> {
       console.log(err);
       this.setState({ is404: true, isLoading: false });
     }
-
-    console.log(this.state);
   }
 
   render() {
@@ -99,11 +97,15 @@ class Quiz extends React.Component<any, StateTypes> {
           <div className="quiz-container">
             {this.state.finished ? (
               <div className="results">
-                <h2>
-                  You scored {this.state.result} out of{" "}
-                  {this.state.quiz.totalQuestions}
-                </h2>
-                <button onClick={this.resetQuiz}>Reset quiz</button>
+                <div className="top">
+                  <h2>
+                    You scored {this.state.result} out of{" "}
+                    {this.state.quiz.totalQuestions}
+                  </h2>
+                </div>
+                <div className="bottom">
+                  <button onClick={this.resetQuiz}>Reset quiz</button>
+                </div>
               </div>
             ) : (
               <>
@@ -124,8 +126,14 @@ class Quiz extends React.Component<any, StateTypes> {
                     this.state.currentQuestion
                   ].choices.map((choice) => (
                     <div className="choice">
-                      <button onClick={this.handleAnswer} data-choice={choice}>
-                        {choice}
+                      <button
+                        onClick={this.handleAnswer}
+                        title={choice}
+                        data-choice={choice}
+                      >
+                        {choice.length > 25
+                          ? choice.substring(0, 25) + ".."
+                          : choice}
                       </button>
                     </div>
                   ))}

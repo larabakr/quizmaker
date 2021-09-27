@@ -1,17 +1,26 @@
 import React from "react";
 
-const questions: {}[] = [];
+let questions: {}[] = [];
 
 class CreateQuiz extends React.Component {
   state = {
     currentQuestion: questions.length + 1,
   };
 
-  componentWillUnmount() {
-    this.setState({
-      currentQuestion: 0,
-    });
-  }
+  shuffle = (array: string[]) => {
+    let currentIndex = array.length,
+      randomIndex;
+    while (currentIndex != 0) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex],
+        array[currentIndex],
+      ];
+    }
+  
+    return array;
+  };
 
   handleSubmit = (e: any) => {
     e.preventDefault();
@@ -23,11 +32,15 @@ class CreateQuiz extends React.Component {
     const fanswer2 = document.getElementById("f-answer-2") as HTMLInputElement;
     const fanswer3 = document.getElementById("f-answer-3") as HTMLInputElement;
 
-    questions.push({
+    const newQuestion = {
       question: question.value,
       correctAnswer: answer.value,
       choices: [fanswer1.value, fanswer2.value, fanswer3.value, answer.value],
-    });
+    };
+
+    newQuestion.choices = this.shuffle(newQuestion.choices);
+
+    questions.push(newQuestion);
 
     question.value = "";
     answer.value = "";
@@ -57,7 +70,16 @@ class CreateQuiz extends React.Component {
         }),
       })
         .then((res) => res.json())
-        .then((res) => alert(res.id));
+        .then((res) => {
+          alert(`Created Quiz id: ${res.id}`);
+
+          this.setState({
+            currentQuestion: 0,
+          });
+
+          questions = [];
+          (document.getElementById("name") as HTMLInputElement).value = '';
+        });
     } else {
       alert("Please enter at least one question to the quiz");
     }
@@ -68,7 +90,7 @@ class CreateQuiz extends React.Component {
       <div className="create-quiz">
         <div className="cont">
           <h2>Question {this.state.currentQuestion}#</h2>
-          <form onSubmit={this.handleSubmit}>
+          <form onSubmit={this.handleSubmit} autoComplete="off">
             <input type="text" id="name" placeholder="quiz name" required />
             <br />
             <input type="text" id="question" placeholder="question" required />
@@ -77,7 +99,6 @@ class CreateQuiz extends React.Component {
               type="text"
               id="answer"
               placeholder="correct answer"
-              autoComplete="off"
               required
             />
             <br />
@@ -85,7 +106,6 @@ class CreateQuiz extends React.Component {
               type="text"
               id="f-answer-1"
               placeholder="false answer 1"
-              autoComplete="off"
               required
             />
             <br />
@@ -93,7 +113,6 @@ class CreateQuiz extends React.Component {
               type="text"
               id="f-answer-2"
               placeholder="false answer 2"
-              autoComplete="off"
               required
             />
             <br />
@@ -101,7 +120,6 @@ class CreateQuiz extends React.Component {
               type="text"
               id="f-answer-3"
               placeholder="false answer 3"
-              autoComplete="off"
               required
             />
             <br />

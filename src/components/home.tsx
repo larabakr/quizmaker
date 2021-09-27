@@ -10,6 +10,14 @@ class Home extends React.Component<any> {
     }
   };
 
+  getQuizButton = () => {
+    const get = (document.getElementById("get") as HTMLInputElement).value;
+
+    if (get) {
+      this.props.history.push(`/q/${get}`);
+    }
+  };
+
   handleClick = () => {
     this.props.history.push("/create");
   };
@@ -27,9 +35,20 @@ class Home extends React.Component<any> {
             <img src={quiz} draggable={false} alt="" />
           </div>
         </div>
-        <div className="get-quiz">
-          <h2>Get quiz by ID</h2>
-          <input type="text" placeholder="quiz id" onKeyPress={this.getQuiz} />
+        {/* <div className="get-quiz">
+          <input type="text" id="get" placeholder="quiz id" onKeyPress={this.getQuiz} />
+          <button onClick={this.getQuizButton}>Get Quiz!</button>
+        </div> */}
+        <div className="features">
+            <div className="feature">
+
+            </div>
+            <div className="feature">
+
+            </div>
+            <div className="feature">
+                
+            </div>
         </div>
       </div>
     );
