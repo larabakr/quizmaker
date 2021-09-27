@@ -11,6 +11,7 @@ interface StateTypes {
     }[];
     id: string;
     totalQuestions: number;
+    name: string;
   };
   isLoading: boolean;
   is404: boolean;
@@ -31,6 +32,7 @@ class Quiz extends React.Component<any, StateTypes> {
         },
       ],
       id: "",
+      name: "",
       totalQuestions: 1,
     },
     is404: false,
@@ -91,6 +93,7 @@ class Quiz extends React.Component<any, StateTypes> {
   render() {
     return (
       <div className="quiz">
+        <h2>{this.state.quiz.name || "Loading..."}</h2>
         {this.state.isLoading ? (
           <p>Loading...</p>
         ) : !this.state.is404 ? (
