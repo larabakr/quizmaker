@@ -2,7 +2,7 @@ import React from "react";
 import { withRouter } from "react-router";
 import NotFound from "./404";
 
-interface StateTypes {
+interface QuizStateTypes {
   quiz: {
     questions: {
       question: string;
@@ -20,7 +20,7 @@ interface StateTypes {
   currentQuestion: number;
 }
 
-class Quiz extends React.Component<any, StateTypes> {
+class Quiz extends React.Component<any, QuizStateTypes> {
   state = {
     quiz: {
       questions: [

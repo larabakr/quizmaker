@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-interface StateTypes {
+interface QuizzesStateTypes {
   quizzes: {
     questions: {
       question: string;
@@ -15,7 +15,7 @@ interface StateTypes {
   isLoading: boolean;
 }
 
-class Quizzes extends React.Component<{}, StateTypes> {
+class Quizzes extends React.Component<{}, QuizzesStateTypes> {
   state = {
     quizzes: [],
     isLoading: true,
