@@ -1,0 +1,38 @@
+.navbar {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    height: 60px;
+    padding: 25px 0;
+    nav {
+      width: 80%;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      .logo {
+        flex: 1.75;
+        h1 {
+          display: flex;
+          align-items: center;
+          font-weight: 500;
+          svg {
+            margin-right: .25em;
+          }
+        }
+      }
+      ul {
+        flex: 1;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        list-style: none;
+        a {
+          color: inherit;
+          text-decoration: none;
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }

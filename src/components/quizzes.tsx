@@ -37,40 +37,6 @@ class Quizzes extends React.Component<{}, StateTypes> {
     })
   }
 
-  search = (e: any) => {
-    if (e.key === "Enter") {
-      if (e.target.value === '') {
-        (async () => {
-          const data = await fetch("/quizzes");
-          const response = await data.json();
-  
-          this.setState({
-            quizzes: response,
-          });
-        })();
-      } else {
-        this.setState({
-          quizzes: this.state.quizzes.filter((quiz: any) =>
-            quiz.name.includes(e.target.value)
-          ),
-        });
-      }
-    }
-  };
-
-  restore = (e: any) => {
-    if (e.target.value === "") {
-      (async () => {
-        const data = await fetch("/quizzes");
-        const response = await data.json();
-
-        this.setState({
-          quizzes: response,
-        });
-      })();
-    } else return;
-  };
-
   render() {
     return (
       <div className="quizzes">
@@ -79,8 +45,24 @@ class Quizzes extends React.Component<{}, StateTypes> {
           id="search"
           placeholder="search..."
           autoComplete="off"
-          onFocus={this.restore}
-          onKeyPress={this.search}
+          onChange={(e) => {
+            if (e.target.value === '') {
+              (async () => {
+                const data = await fetch("/quizzes");
+                const response = await data.json();
+        
+                this.setState({
+                  quizzes: response,
+                });
+              })();
+            } else {
+              this.setState({
+                quizzes: this.state.quizzes.filter((quiz: any) =>
+                  quiz.name.includes(e.target.value)
+                ),
+              });
+            }
+          }}
         />
         {this.state.isLoading ? (
           <p>Loading...</p>

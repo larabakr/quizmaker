@@ -93,7 +93,7 @@ class Quiz extends React.Component<any, StateTypes> {
   render() {
     return (
       <div className="quiz">
-        <h2>{this.state.quiz.name || "Loading..."}</h2>
+        <h2>{this.state.quiz.name}</h2>
         {this.state.isLoading ? (
           <p>Loading...</p>
         ) : !this.state.is404 ? (
